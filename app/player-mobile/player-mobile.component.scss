@@ -1,0 +1,25 @@
+.player {
+    width: 80px;
+    display: flex;
+    align-items: center;
+    flex-direction: column ;
+    background-color: rgb(50, 50, 50, 0.8);
+    border-bottom-left-radius: 30px; 
+    border-bottom-right-radius: 30px;
+
+    span{
+        font-size: 14px; 
+    }
+
+    img {
+        margin-top: 8px;
+        width: 35px;
+        height: 35px;
+        object-fit: cover; 
+        border-radius: 100%;
+    }
+}
+
+.player-active{
+    background-color: aquamarine !important;
+}
