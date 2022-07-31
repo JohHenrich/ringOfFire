@@ -12,19 +12,26 @@
 </div>
 
 
-<div *ngIf="!gameOver" class="field">
+<div class="field">
     <div class="cards-stack">
 
-        <!-- Card stack -->
-        <img [ngStyle]="{'right.px': i * 5}" *ngFor="let c of [1, 2, 3, 4, 5]; let i = index;"
+        <!-- Card stack  <img [ngStyle]="{'right.px': i * 5}" *ngFor="let c of [1, 2, 3, 4, 5]; let i = index;"
             src="/assets/img/cards/card_cover.png">
-        <img (click)="takeCard()"  class="top-card" style="right: 25px" src="/assets/img/cards/card_cover.png">
+        <img (click)="takeCard()"  class="top-card" style="right: 25px" src="/assets/img/cards/card_cover.png">-->
 
-        <!-- Stack for played cards -->
-        <img *ngFor="let card of game.playedCards"  class="played-card" src="/assets/img/cards/{{ card }}.png" alt="">
+        <img [ngStyle]="{'right.px':  polarX(280, i), 'top.px':  polarY(280, i), 'transform': 'rotate('+i*(360/54)+'deg)'}"
+            *ngFor="let c of game.stack; let i = index;" src="/assets/img/cards/card_cover.png">
+
+        <img (click)="takeCard()" class="top-card"
+            [ngStyle]="{'right.px': polarX(280, game.stack.length), 'top.px': polarY(280, game.stack.length), 'transform': 'rotate('+ game.stack.length * (360/54) + 'deg)'}"
+            src="/assets/img/cards/card_cover.png">
+
+        <!-- Stack for played cards --> 
+        <img [ngStyle]="{'transform': 'rotate('+i*(360/54)+'deg)'}" *ngFor="let card of game.playedCards; let i = index;" class="played-card" src="/assets/img/cards/{{ card }}.png">
 
         <!-- Current card (Animation)-->
-        <img (click)="takeCard()" *ngIf="game.takeCardAnimation" class="take-card" style="right: 25px"
+        <img (click)="takeCard()" *ngIf="game.takeCardAnimation" class="take-card"
+            [ngStyle]="{'right.px':  polarX(280, game.stack.length), 'top.px':  polarY(250,  game.stack.length),'transform': 'translate( ' + polarXtrans(280,  game.stack.length) + 'px, ' + polarYtrans(-280,  game.stack.length) + 'px)' }"
             src="/assets/img/cards/{{ game.currentCard }}.png">
 
 
@@ -35,6 +42,7 @@
 
 <button *ngIf="!gameOver" mat-mini-fab color="accent" (click)="openDialog()" class="btn-add">
     <mat-icon>add</mat-icon>
-</button> 
+</button>
 
-<img class="perload-image" src="/assets/img/cards/{{ game.stack.length -1 }}.png" >
+<!-- preload card -->
+<img class="perload-image" src="/assets/img/cards/{{ game.stack[game.stack.length -1] }}.png">

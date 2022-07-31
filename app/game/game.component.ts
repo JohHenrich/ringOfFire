@@ -49,8 +49,6 @@ export class GameComponent implements OnInit {
 
   newGame() {
     this.game = new Game;
-
-
   }
 
 
@@ -61,7 +59,6 @@ export class GameComponent implements OnInit {
     } else if (!this.game.takeCardAnimation) {
       this.game.currentCard = this.game.stack.pop();
       this.game.takeCardAnimation = true;
-      this.game.playedCards.push(this.game.currentCard);
       this.game.currentPlayer++;
       this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
       this.saveGame();
@@ -113,4 +110,31 @@ export class GameComponent implements OnInit {
       .doc(this.gameId)
       .update(this.game.toJson());
   }
+
+
+
+  polarX(r: number, phi: number) {
+
+    return [r * Math.sin(phi * 54/480)];
+
+  }
+
+  polarXtrans(r: number, phi: number) {
+
+    return [r * Math.sin(phi * 54/480) + 30];
+
+  }
+
+  polarY(r: number, phi: number) {
+
+    return [r * Math.cos(phi * 54/480) - 150];
+  }
+
+
+  polarYtrans(r: number, phi: number) {
+
+    return [r * Math.cos(phi * 54/480) - 10];
+
+  }
+
 }
